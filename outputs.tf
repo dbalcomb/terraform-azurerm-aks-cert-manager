@@ -7,3 +7,8 @@ output "namespace" {
   description = "The certificate manager namespace"
   value       = module.controller.namespace
 }
+
+output "metrics" {
+  description = "Enable prometheus metrics"
+  value       = var.metrics
+}

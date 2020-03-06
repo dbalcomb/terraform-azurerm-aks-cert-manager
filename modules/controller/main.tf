@@ -28,12 +28,30 @@ resource "kubernetes_namespace" "main" {
   }
 }
 
+locals {
+  metrics = {
+    "prometheus.enabled"                    = "true"
+    "podAnnotations.prometheus\\.io/scrape" = "true"
+    "podAnnotations.prometheus\\.io/path"   = "/metrics"
+    "podAnnotations.prometheus\\.io/port"   = "9402"
+  }
+}
+
 resource "helm_release" "main" {
   name       = var.name
   namespace  = kubernetes_namespace.main.metadata.0.name
   repository = data.helm_repository.main.metadata.0.name
   chart      = "cert-manager"
   version    = "0.13"
+
+  dynamic "set" {
+    for_each = var.metrics ? local.metrics : {}
+
+    content {
+      name  = set.key
+      value = set.value
+    }
+  }
 
   depends_on = [
     null_resource.definitions,
