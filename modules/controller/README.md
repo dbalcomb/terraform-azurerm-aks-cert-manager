@@ -25,3 +25,9 @@ module "controller" {
 | ----------- | -------- | ----------------------------------------------- |
 | `name`      | `string` | The certificate management controller name      |
 | `namespace` | `string` | The certificate management controller namespace |
+
+## Notes
+
+- This module currently requires the `kubectl` command-line utility to be
+  installed in the `PATH` and a `kubeconfig` file in the current working
+  directory for *Kubernetes* authentication.
