@@ -1,4 +1,4 @@
 variable "name" {
-  description = "The resource name"
+  description = "The certificate manager name"
   type        = string
 }

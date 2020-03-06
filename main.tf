@@ -1,5 +1,5 @@
-resource "kubernetes_namespace" "main" {
-  metadata {
-    name = var.name
-  }
+module "controller" {
+  source = "./modules/controller"
+
+  name = var.name
 }
