@@ -7,3 +7,8 @@ output "namespace" {
   description = "The certificate management controller namespace"
   value       = kubernetes_namespace.main.metadata.0.name
 }
+
+output "metrics" {
+  description = "Enable prometheus metrics"
+  value       = var.metrics
+}

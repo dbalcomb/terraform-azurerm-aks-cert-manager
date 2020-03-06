@@ -1,5 +1,6 @@
 module "controller" {
   source = "./modules/controller"
 
-  name = var.name
+  name    = var.name
+  metrics = var.metrics
 }

@@ -9,15 +9,17 @@
 module "cert_manager" {
   source = "github.com/dbalcomb/terraform-azurerm-aks-cert-manager"
 
-  name = "cert-manager"
+  name    = "cert-manager"
+  metrics = true
 }
 ```
 
 ## Inputs
 
-| Name   | Type     | Default | Description                  |
-| ------ | -------- | ------- | ---------------------------- |
-| `name` | `string` |         | The certificate manager name |
+| Name      | Type     | Default | Description                  |
+| --------- | -------- | ------- | ---------------------------- |
+| `name`    | `string` |         | The certificate manager name |
+| `metrics` | `bool`   | `false` | Enable prometheus metrics    |
 
 ## Outputs
 
@@ -25,6 +27,7 @@ module "cert_manager" {
 | ----------- | -------- | --------------------------------- |
 | `name`      | `string` | The certificate manager name      |
 | `namespace` | `string` | The certificate manager namespace |
+| `metrics`   | `bool`   | Enable prometheus metrics         |
 
 ## Modules
 
