@@ -1,0 +1,30 @@
+name: Check
+on:
+  pull_request:
+    paths:
+    - '**.tf'
+    - .github/workflows/check.yml
+  push:
+    branches:
+    - master
+jobs:
+  validate:
+    name: Validate
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Install terraform
+      uses: volcano-coffee-company/setup-terraform@v1
+      with:
+        version: ~0.12.20
+
+    - name: Check formatting
+      run: terraform fmt -check -diff -recursive
+
+    - name: Initialize terraform
+      run: terraform init -backend=false
+
+    - name: Validate terraform
+      run: terraform validate
