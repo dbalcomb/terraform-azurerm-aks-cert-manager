@@ -26,5 +26,8 @@ jobs:
     - name: Initialize terraform
       run: terraform init -backend=false
 
-    - name: Validate terraform
+    - name: Validate root
       run: terraform validate
+
+    - name: Validate issuer
+      run: terraform validate modules/issuer

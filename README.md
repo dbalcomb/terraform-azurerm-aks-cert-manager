@@ -12,6 +12,18 @@ module "cert_manager" {
   name    = "cert-manager"
   metrics = true
 }
+
+module "issuer" {
+  source = "github.com/dbalcomb/terraform-azurerm-aks-cert-manager//modules/issuer"
+
+  name   = "issuer"
+  email  = "daniel.balcomb@gmail.com"
+  server = "production"
+
+  ingress = {
+    class = "traefik"
+  }
+}
 ```
 
 ## Inputs
@@ -32,3 +44,4 @@ module "cert_manager" {
 ## Modules
 
 - [Controller](modules/controller/README.md)
+- [Issuer](modules/issuer/README.md)

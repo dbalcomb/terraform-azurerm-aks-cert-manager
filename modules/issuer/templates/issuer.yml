@@ -1,0 +1,14 @@
+apiVersion: cert-manager.io/v1alpha2
+kind: ClusterIssuer
+metadata:
+  name: ${ name }
+spec:
+  acme:
+    email: ${ email }
+    server: ${ server }
+    privateKeySecretRef:
+      name: ${ name }-key
+    solvers:
+    - http01:
+        ingress:
+          class: ${ ingress_class }
