@@ -1,4 +1,9 @@
+output "name" {
+  description = "The certificate manager name"
+  value       = module.controller.name
+}
+
 output "namespace" {
-  description = "The Kubernetes namespace"
-  value       = kubernetes_namespace.main
+  description = "The certificate manager namespace"
+  value       = module.controller.namespace
 }
