@@ -1,0 +1,42 @@
+name: CI
+on:
+  pull_request:
+  push:
+    branches:
+    - master
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Install terraform
+      uses: volcano-coffee-company/setup-terraform@v1
+      with:
+        version: ~0.12.24
+
+    - name: Lint
+      run: terraform fmt -check -diff -recursive
+
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Install terraform
+      uses: volcano-coffee-company/setup-terraform@v1
+      with:
+        version: ~0.12.24
+
+    - name: Initialize
+      run: terraform init -input=false -backend=false
+      working-directory: ./tests/complete
+
+    - name: Validate
+      run: terraform validate
+      working-directory: ./tests/complete
