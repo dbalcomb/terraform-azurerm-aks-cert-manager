@@ -20,8 +20,26 @@ variable "kubeconfig" {
 }
 
 variable "ingress" {
-  description = "The ingress configuration"
+  description = "The ingress configuration for HTTP challenges"
+  default     = null
   type = object({
     class = string
+  })
+}
+
+variable "dns_zone" {
+  description = "The DNS zone configuration for DNS challenges"
+  default     = null
+  type = object({
+    name  = string
+    group = string
+  })
+}
+
+variable "dns_service_principal" {
+  description = "The service principal configuration for DNS challenges"
+  default     = null
+  type = object({
+    secret = string
   })
 }

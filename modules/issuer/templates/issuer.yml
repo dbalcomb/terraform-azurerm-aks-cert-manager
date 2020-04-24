@@ -9,6 +9,21 @@ spec:
     privateKeySecretRef:
       name: ${ name }-key
     solvers:
+    %{~ if ingress != null ~}
     - http01:
         ingress:
-          class: ${ ingress_class }
+          class: ${ ingress.class }
+    %{~ endif ~}
+    %{~ if dns != null ~}
+    - dns01:
+        azuredns:
+          tenantID: ${ dns.tenant_id }
+          subscriptionID: ${ dns.subscription_id }
+          clientID: ${ dns.client_id }
+          clientSecretSecretRef:
+            name: ${ dns.secret_name }
+            key: secret
+          resourceGroupName: ${ dns.zone.group }
+          hostedZoneName: ${ dns.zone.name }
+          environment: AzurePublicCloud
+    %{~ endif ~}
