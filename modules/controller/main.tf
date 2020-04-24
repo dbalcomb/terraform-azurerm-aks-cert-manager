@@ -3,6 +3,12 @@ data "helm_repository" "main" {
   url  = "https://charts.jetstack.io"
 }
 
+resource "local_file" "kubeconfig" {
+  filename          = "${path.cwd}/kubeconfig"
+  file_permission   = "0644"
+  sensitive_content = var.kubeconfig
+}
+
 resource "null_resource" "definitions" {
   triggers = {
     hash = sha256(file("${path.module}/templates/definitions.yml"))
@@ -16,6 +22,10 @@ resource "null_resource" "definitions" {
     command = "kubectl delete -f ${path.module}/templates/definitions.yml --kubeconfig ${path.cwd}/kubeconfig"
     when    = destroy
   }
+
+  depends_on = [
+    local_file.kubeconfig,
+  ]
 }
 
 resource "kubernetes_namespace" "main" {
