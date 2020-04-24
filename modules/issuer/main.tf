@@ -15,6 +15,12 @@ locals {
   })
 }
 
+resource "local_file" "kubeconfig" {
+  filename          = "${path.cwd}/kubeconfig"
+  file_permission   = "0644"
+  sensitive_content = var.kubeconfig
+}
+
 resource "null_resource" "issuer" {
   triggers = {
     file = base64encode(local.issuer)
@@ -28,4 +34,8 @@ resource "null_resource" "issuer" {
     command = format("kubectl --kubeconfig ${path.cwd}/kubeconfig delete -f - <<EOF\n%s\nEOF", base64decode(self.triggers.file))
     when    = destroy
   }
+
+  depends_on = [
+    local_file.kubeconfig,
+  ]
 }

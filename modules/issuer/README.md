@@ -10,9 +10,10 @@ server.
 module "issuer" {
   source = "github.com/dbalcomb/terraform-azurerm-aks-cert-manager//modules/issuer"
 
-  name   = "issuer"
-  email  = "daniel.balcomb@gmail.com"
-  server = "production"
+  name       = "issuer"
+  email      = "daniel.balcomb@gmail.com"
+  server     = "production"
+  kubeconfig = "..."
 
   ingress = {
     class = "traefik"
@@ -27,6 +28,7 @@ module "issuer" {
 | `name`          | `string` |           | The certificate issuer name                                  |
 | `email`         | `string` |           | The certificate issuer ACME registration email address       |
 | `server`        | `string` | `staging` | The certificate issuer ACME server address                   |
+| `kubeconfig`    | `string` |           | The Kubernetes configuration file contents                   |
 | `ingress`       | `object` |           | The ingress configuration                                    |
 | `ingress.class` | `string` |           | The ingress class used for automating the validation process |
 
@@ -44,5 +46,5 @@ module "issuer" {
 - This module evaluates the shorthand `production` and `staging` values for the
   `server` variable as the corresponding *Let's Encrypt* environment.
 - This module currently requires the `kubectl` command-line utility to be
-  installed in the `PATH` and a `kubeconfig` file in the current working
-  directory for *Kubernetes* authentication.
+  installed in the `PATH` and a `kubeconfig` input for *Kubernetes*
+  authentication.
