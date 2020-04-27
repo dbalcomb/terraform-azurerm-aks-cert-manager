@@ -23,7 +23,7 @@ locals {
 
     dns = local.dns_challenge ? {
       secret_name     = kubernetes_secret.secret.0.metadata.0.name
-      client_id       = data.azurerm_client_config.main.0.client_id
+      client_id       = var.dns_service_principal.application_id
       subscription_id = data.azurerm_client_config.main.0.subscription_id
       tenant_id       = data.azurerm_client_config.main.0.tenant_id
       zone            = var.dns_zone

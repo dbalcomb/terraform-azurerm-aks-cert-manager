@@ -33,6 +33,7 @@ module "issuer_dns" {
   }
 
   dns_service_principal = {
-    secret = "..."
+    application_id = "..."
+    secret         = "..."
   }
 }
