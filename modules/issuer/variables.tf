@@ -40,6 +40,7 @@ variable "dns_service_principal" {
   description = "The service principal configuration for DNS challenges"
   default     = null
   type = object({
-    secret = string
+    application_id = string
+    secret         = string
   })
 }
