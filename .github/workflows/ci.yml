@@ -14,9 +14,9 @@ jobs:
       uses: actions/checkout@v2
 
     - name: Install terraform
-      uses: volcano-coffee-company/setup-terraform@v1
+      uses: hashicorp/setup-terraform@v1
       with:
-        version: ~0.12.24
+        terraform_version: 1.0.10
 
     - name: Lint
       run: terraform fmt -check -diff -recursive
@@ -29,9 +29,9 @@ jobs:
       uses: actions/checkout@v2
 
     - name: Install terraform
-      uses: volcano-coffee-company/setup-terraform@v1
+      uses: hashicorp/setup-terraform@v1
       with:
-        version: ~0.12.24
+        terraform_version: 1.0.10
 
     - name: Initialize
       run: terraform init -input=false -backend=false

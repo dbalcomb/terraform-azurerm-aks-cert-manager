@@ -1,8 +1,3 @@
-data "helm_repository" "main" {
-  name = "jetstack"
-  url  = "https://charts.jetstack.io"
-}
-
 resource "local_file" "kubeconfig" {
   filename          = "${path.cwd}/kubeconfig"
   file_permission   = "0644"
@@ -50,7 +45,7 @@ locals {
 resource "helm_release" "main" {
   name       = var.name
   namespace  = kubernetes_namespace.main.metadata.0.name
-  repository = data.helm_repository.main.metadata.0.name
+  repository = "https://charts.jetstack.io"
   chart      = "cert-manager"
   version    = "0.13"
 
