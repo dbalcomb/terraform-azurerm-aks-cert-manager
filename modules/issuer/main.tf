@@ -31,12 +31,6 @@ locals {
   })
 }
 
-resource "local_file" "kubeconfig" {
-  filename          = "${path.cwd}/kubeconfig"
-  file_permission   = "0644"
-  sensitive_content = var.kubeconfig
-}
-
 resource "kubernetes_secret" "secret" {
   count = local.dns_challenge ? 1 : 0
 
@@ -50,22 +44,6 @@ resource "kubernetes_secret" "secret" {
   }
 }
 
-resource "null_resource" "issuer" {
-  triggers = {
-    file = base64encode(local.issuer)
-  }
-
-  provisioner "local-exec" {
-    command = format("kubectl --kubeconfig ${path.cwd}/kubeconfig apply -f - <<EOF\n%s\nEOF", base64decode(self.triggers.file))
-  }
-
-  provisioner "local-exec" {
-    command = format("kubectl --kubeconfig ${path.cwd}/kubeconfig delete -f - <<EOF\n%s\nEOF", base64decode(self.triggers.file))
-    when    = destroy
-  }
-
-  depends_on = [
-    local_file.kubeconfig,
-    kubernetes_secret.secret,
-  ]
+resource "kubernetes_manifest" "issuer" {
+  manifest = yamldecode(local.issuer)
 }

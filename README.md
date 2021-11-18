@@ -9,9 +9,8 @@
 module "cert_manager" {
   source = "github.com/dbalcomb/terraform-azurerm-aks-cert-manager"
 
-  name       = "cert-manager"
-  kubeconfig = "..."
-  metrics    = true
+  name    = "cert-manager"
+  metrics = true
 }
 
 module "issuer" {
