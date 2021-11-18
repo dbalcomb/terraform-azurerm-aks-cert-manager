@@ -9,11 +9,11 @@ module "issuer_http" {
   source = "../../modules/issuer"
 
   name   = "issuer"
-  email  = "daniel.balcomb@gmail.com"
+  email  = "user@example.com"
   server = "staging"
 
   ingress = {
-    class = "traefik"
+    class = "nginx"
   }
 }
 
@@ -21,7 +21,7 @@ module "issuer_dns" {
   source = "../../modules/issuer"
 
   name   = "issuer"
-  email  = "daniel.balcomb@gmail.com"
+  email  = "user@example.com"
   server = "staging"
 
   dns_zone = {
