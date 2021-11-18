@@ -17,10 +17,9 @@ module "cert_manager" {
 module "issuer" {
   source = "github.com/dbalcomb/terraform-azurerm-aks-cert-manager//modules/issuer"
 
-  name       = "issuer"
-  email      = "daniel.balcomb@gmail.com"
-  server     = "production"
-  kubeconfig = "..."
+  name   = "issuer"
+  email  = "daniel.balcomb@gmail.com"
+  server = "production"
 
   ingress = {
     class = "traefik"
@@ -30,11 +29,10 @@ module "issuer" {
 
 ## Inputs
 
-| Name         | Type     | Default | Description                                |
-| ------------ | -------- | ------- | ------------------------------------------ |
-| `name`       | `string` |         | The certificate manager name               |
-| `kubeconfig` | `string` |         | The Kubernetes configuration file contents |
-| `metrics`    | `bool`   | `false` | Enable prometheus metrics                  |
+| Name      | Type     | Default | Description                                |
+| --------- | -------- | ------- | ------------------------------------------ |
+| `name`    | `string` |         | The certificate manager name               |
+| `metrics` | `bool`   | `false` | Enable prometheus metrics                  |
 
 ## Outputs
 
