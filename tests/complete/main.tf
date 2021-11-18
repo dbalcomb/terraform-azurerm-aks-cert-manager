@@ -1,9 +1,8 @@
 module "cert_manager" {
   source = "../../"
 
-  name       = "cert-manager"
-  kubeconfig = "..."
-  metrics    = true
+  name    = "cert-manager"
+  metrics = true
 }
 
 module "issuer_http" {
