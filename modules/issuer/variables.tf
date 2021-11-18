@@ -14,11 +14,6 @@ variable "server" {
   type        = string
 }
 
-variable "kubeconfig" {
-  description = "The Kubernetes configuration file contents"
-  type        = string
-}
-
 variable "ingress" {
   description = "The ingress configuration for HTTP challenges"
   default     = null

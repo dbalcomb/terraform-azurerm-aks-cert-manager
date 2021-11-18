@@ -8,10 +8,9 @@ module "cert_manager" {
 module "issuer_http" {
   source = "../../modules/issuer"
 
-  name       = "issuer"
-  email      = "daniel.balcomb@gmail.com"
-  server     = "staging"
-  kubeconfig = "..."
+  name   = "issuer"
+  email  = "daniel.balcomb@gmail.com"
+  server = "staging"
 
   ingress = {
     class = "traefik"
@@ -21,10 +20,9 @@ module "issuer_http" {
 module "issuer_dns" {
   source = "../../modules/issuer"
 
-  name       = "issuer"
-  email      = "daniel.balcomb@gmail.com"
-  server     = "staging"
-  kubeconfig = "..."
+  name   = "issuer"
+  email  = "daniel.balcomb@gmail.com"
+  server = "staging"
 
   dns_zone = {
     name  = "example.com"
