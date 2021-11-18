@@ -11,11 +11,11 @@ module "issuer" {
   source = "github.com/dbalcomb/terraform-azurerm-aks-cert-manager//modules/issuer"
 
   name   = "issuer"
-  email  = "daniel.balcomb@gmail.com"
+  email  = "user@example.com"
   server = "production"
 
   ingress = {
-    class = "traefik"
+    class = "nginx"
   }
 }
 ```
