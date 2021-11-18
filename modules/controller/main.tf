@@ -1,28 +1,3 @@
-resource "local_file" "kubeconfig" {
-  filename          = "${path.cwd}/kubeconfig"
-  file_permission   = "0644"
-  sensitive_content = var.kubeconfig
-}
-
-resource "null_resource" "definitions" {
-  triggers = {
-    hash = sha256(file("${path.module}/templates/definitions.yml"))
-  }
-
-  provisioner "local-exec" {
-    command = "kubectl apply -f ${path.module}/templates/definitions.yml --kubeconfig ${path.cwd}/kubeconfig"
-  }
-
-  provisioner "local-exec" {
-    command = "kubectl delete -f ${path.module}/templates/definitions.yml --kubeconfig ${path.cwd}/kubeconfig"
-    when    = destroy
-  }
-
-  depends_on = [
-    local_file.kubeconfig,
-  ]
-}
-
 resource "kubernetes_namespace" "main" {
   metadata {
     name = var.name
@@ -47,7 +22,12 @@ resource "helm_release" "main" {
   namespace  = kubernetes_namespace.main.metadata.0.name
   repository = "https://charts.jetstack.io"
   chart      = "cert-manager"
-  version    = "0.13"
+  version    = "1.6.1"
+
+  set {
+    name  = "installCRDs"
+    value = "true"
+  }
 
   dynamic "set" {
     for_each = var.metrics ? local.metrics : {}
@@ -57,8 +37,4 @@ resource "helm_release" "main" {
       value = set.value
     }
   }
-
-  depends_on = [
-    null_resource.definitions,
-  ]
 }
