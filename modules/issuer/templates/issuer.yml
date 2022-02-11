@@ -9,11 +9,6 @@ spec:
     privateKeySecretRef:
       name: ${ name }-key
     solvers:
-    %{~ if ingress != null ~}
-    - http01:
-        ingress:
-          class: ${ ingress.class }
-    %{~ endif ~}
     %{~ if dns != null ~}
     - dns01:
         azureDNS:
@@ -26,4 +21,12 @@ spec:
           resourceGroupName: ${ dns.zone.group }
           hostedZoneName: ${ dns.zone.name }
           environment: AzurePublicCloud
+      selector:
+        dnsZones:
+        - ${ dns.zone.name }
+    %{~ endif ~}
+    %{~ if ingress != null ~}
+    - http01:
+        ingress:
+          class: ${ ingress.class }
     %{~ endif ~}
